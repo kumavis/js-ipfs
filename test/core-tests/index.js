@@ -27,7 +27,12 @@ describe('core', () => {
   const tests = fs.readdirSync(__dirname)
   tests.filter((file) => {
     if (file === 'index.js' ||
+<<<<<<< 2289ac91af1ead33694f1196b0adfd0029052ebb:test/core-tests/index.js
         file.endsWith('browser.js')) {
+=======
+        file === 'browser.js' ||
+        file === 'test-swarm-browser.js') {
+>>>>>>> jsipfs swarm:tests/test-core/index.js
       return false
     } else {
       return true
