@@ -1,6 +1,7 @@
 'use strict'
 
 const mh = require('multihashes')
+const CID = require('cids')
 const multipart = require('ipfs-multipart')
 const Block = require('ipfs-block')
 const waterfall = require('async/waterfall')
@@ -18,7 +19,7 @@ exports.parseKey = (request, reply) => {
 
   try {
     return reply({
-      key: mh.fromB58String(request.query.arg)
+      key: new CID(request.query.arg)
     })
   } catch (err) {
     log.error(err)
@@ -36,7 +37,6 @@ exports.get = {
   // main route handler which is called after the above `parseArgs`, but only if the args were valid
   handler: (request, reply) => {
     const key = request.pre.args.key
-
     request.server.app.ipfs.block.get(key, (err, block) => {
       if (err) {
         log.error(err)
@@ -46,7 +46,7 @@ exports.get = {
         }).code(500)
       }
 
-      return reply(block.data.toString())
+      return reply(block.data)
     })
   }
 }
