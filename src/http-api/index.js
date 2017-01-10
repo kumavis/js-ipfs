@@ -69,13 +69,13 @@ exports = module.exports = function HttpApi (repo) {
 
         // select which connection with server.select(<label>) to add routes
         this.server.connection({
-          host: api[2],
+          // host: api[2],
           port: api[4],
           labels: 'API'
         })
 
         this.server.connection({
-          host: gateway[2],
+          // host: gateway[2],
           port: gateway[4],
           labels: 'Gateway'
         })
