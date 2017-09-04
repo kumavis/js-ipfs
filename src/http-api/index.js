@@ -14,6 +14,7 @@ const log = debug('api')
 log.error = debug('api:error')
 
 const IPFS = require('../core')
+const HttpBlockService = require('../block-service-http')
 const errorHandler = require('./error-handler')
 
 function uriToMultiaddr (uri) {
@@ -30,7 +31,10 @@ exports = module.exports = function HttpApi (repo) {
       repo = new IPFSRepo(repo, {stores: Store})
     }
 
+    const blockService = new HttpBlockService({ ipfsHttpApiUrl: 'http://localhost:5001' })
+
     this.ipfs = new IPFS({
+      blockService,
       repo: repo,
       EXPERIMENTAL: {
         pubsub: true
